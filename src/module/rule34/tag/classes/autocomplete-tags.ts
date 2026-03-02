@@ -27,11 +27,11 @@ export class AutocompleteTags {
         return this.fromObject(raw.map(AutocompleteTag.fromRaw), tag);
     }
 
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
+    static fromObject(object: AutocompleteTag[], tag: string) {
+        return new this(object, tag);
     }
     
-    protected constructor (array: AutocompleteTag[], tag: string) {
+    constructor (array: AutocompleteTag[], tag: string) {
         this.incompleteTag = tag;
         this.tags = array.filter(i => i.isReal());
     }
