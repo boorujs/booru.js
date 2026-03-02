@@ -8,14 +8,14 @@ export class PostTags extends Array<PostTag> {
 
     //#region constructor
     static fromRaw(raw: RawPostJSON<true>) {
-        return this.fromObject({
+        return PostTags.fromObject({
             string: raw.tags,
             tags: raw.tag_info.map(PostTag.fromRaw)
         });
     }
 
     static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
+        return new PostTags(object);
     }
 
     protected constructor (object: { string: string; tags: PostTag[] }) {

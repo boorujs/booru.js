@@ -1,15 +1,18 @@
-import type { Authentication } from "../../client/interfaces/authentication.ts";
-
 export interface Autocomplete {
     q: string;
 }
 
-export type Search = {
+export type Search<J extends boolean | unknown = unknown> = {
     tags?: string;
     id?: number;
     limit?: number;
     pid?: number;
 } & (
-    | { json?: 0; }
-    | { json: 1; fields?: "tag_info" | string; }
+    J extends false
+        ? { json?: 0; }
+        : J extends true
+            ? { json: 1; fields?: "tag_info" | string; }
+            : 
+                | { json?: 0; }
+                | { json: 1; fields?: "tag_info" | string; }
 );

@@ -13,7 +13,7 @@ export class AutocompleteTag implements Pick<BaseTag, "name" | "count"> {
     
     //#region constructor
     static fromRaw(raw: RawAutocompleteTags[number]): AutocompleteTag {
-        return this.fromObject({
+        return AutocompleteTag.fromObject({
             name: raw.value,
             count: parseInt(
                 raw.label.match(this.RAW_LABEL_COUNT_REGEX)?.[0] ?? "0"
@@ -21,11 +21,14 @@ export class AutocompleteTag implements Pick<BaseTag, "name" | "count"> {
         }, raw);
     }
 
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
+    static fromObject(
+        object: { name: string; count: number; },
+        raw: RawAutocompleteTags[number]
+    ) {
+        return new AutocompleteTag(object, raw);
     }
     
-    protected constructor (
+    constructor (
         options: { name: string; count: number; },
         raw: RawAutocompleteTags[number]
     ) {

@@ -17,18 +17,21 @@ export class AutocompleteTags {
         ReturnType<typeof this.fromRaw>
     > {
         const tag = query.match(this.LAST_TAG_REGEX)?.[0];
-        if (!tag) return this.fromRaw([], query);
+        if (!tag) return AutocompleteTags.fromRaw([], query);
         const response: RawAutocompleteTags
             = await fetchJSON(APIURL.autocomplete({ q: tag }));
         return this.fromRaw(response, tag);
     }
 
     static fromRaw(raw: RawAutocompleteTags, tag: string): AutocompleteTags {
-        return this.fromObject(raw.map(AutocompleteTag.fromRaw), tag);
+        return AutocompleteTags.fromObject(
+            raw.map(AutocompleteTag.fromRaw),
+            tag
+        );
     }
 
     static fromObject(object: AutocompleteTag[], tag: string) {
-        return new this(object, tag);
+        return new AutocompleteTags(object, tag);
     }
     
     constructor (array: AutocompleteTag[], tag: string) {

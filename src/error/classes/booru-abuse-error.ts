@@ -15,7 +15,10 @@ export class BooruAbuseError extends Error {
         throw new this(...args);
     }
 
-    constructor (code: ErrorCode, args: Parameters<typeof ERROR_CODE[typeof code]> = []) {
+    constructor (
+        code: ErrorCode,
+        args: Parameters<typeof ERROR_CODE[typeof code]> = []
+    ) {
         const errorCode = ERROR_CODE[code](...args);
 
         super(errorCode.message);

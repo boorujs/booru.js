@@ -22,7 +22,7 @@ export enum TagType {
      * Image metadata, content qualities (e.g. sound), or a call for help (e.g.
      * `tagme`).
      */
-    Meta,
+    Metadata,
     /**
      * A tag whose type isn't certain yet.
      */

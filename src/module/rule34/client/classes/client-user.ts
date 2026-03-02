@@ -7,17 +7,17 @@ export class ClientUser implements Pick<BaseUser, "id"> {
 
     //#region constructor
     static fromAuth(auth: Pick<Authentication, "user_id">) {
-        return this.fromObject({
+        return ClientUser.fromObject({
             id: auth.user_id
         });
     }
 
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
+    static fromObject(object: { id: number; }) {
+        return new ClientUser(object);
     }
 
-    protected constructor (options: { id: number; }) {
-        this.id = options.id;
+    constructor (option: { id: number; }) {
+        this.id = option.id;
     }
     //#endregion
 }

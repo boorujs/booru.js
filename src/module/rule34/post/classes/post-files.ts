@@ -8,16 +8,19 @@ export class PostFile {
     size: [ width: number, height: number ];
 
     //#region constructor
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
-    }
-    
-    protected constructor (object: {
+    static fromObject(object: {
         url: string;
         size: [ width: number, height: number ];
     }) {
-        this.url = object.url;
-        this.size = object.size;
+        return new this(object);
+    }
+    
+    constructor (option: {
+        url: string;
+        size: [ width: number, height: number ];
+    }) {
+        this.url = option.url;
+        this.size = option.size;
     }
     //#endregion
 }
@@ -45,7 +48,7 @@ export class PostFiles extends PostFile {
         json: RawPostJSON;
         xml: RawPostXML;
     }) {
-        return this.fromObject({
+        return PostFiles.fromObject({
             url: json.file_url,
             size: [ json.width, json.height ],
             downsample: {
@@ -65,11 +68,7 @@ export class PostFiles extends PostFile {
         });
     }
 
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
-    }
-
-    protected constructor (object: {
+    static override fromObject(object: {
         url: string;
         size: [ width: number, height: number ];
         downsample: {
@@ -84,22 +83,43 @@ export class PostFiles extends PostFile {
         hash: string;
         image: string;
     }) {
-        super(object);
-        this.downsample = <any> PostFile.fromObject(object.downsample);
-        this.downsample.exists = this.url !== this.downsample.url;
-        this.thumbnail = PostFile.fromObject(object.thumbnail);
+        return new PostFiles(object);
+    }
 
-        const ext = object.image.match(/(?<=\.)\w+$/)![0];
+    constructor (option: {
+        url: string;
+        size: [ width: number, height: number ];
+        downsample: {
+            url: string;
+            size: [ width: number, height: number ];
+        };
+        thumbnail: {
+            url: string;
+            size: [ width: number, height: number ];
+        };
+        directory: number;
+        hash: string;
+        image: string;
+    }) {
+        super(option);
+        this.downsample = <any> PostFile.fromObject(option.downsample);
+        this.downsample.exists = this.url !== this.downsample.url;
+        this.thumbnail = PostFile.fromObject(option.thumbnail);
+
+        const ext = option.image.match(/(?<=\.)\w+$/)![0];
 
         this.type = PostFileType[
-            Object.keys(PostFiles.FILE_EXTENSIONS).find(key =>
-                PostFiles.FILE_EXTENSIONS[key].includes(ext)
-            )
+            (Object.keys(PostFiles.FILE_EXTENSIONS) as
+                (keyof typeof PostFiles.FILE_EXTENSIONS)[])
+            .find(key =>
+                (PostFiles.FILE_EXTENSIONS[key] as string[]).includes(ext)
+            )!
         ];
         // ERROR
 
-        this.directory = object.directory;
-        this.hash = object.hash;
+        this.directory = option.directory;
+        this.hash = option.hash;
+        this.extension = ext;
     }
     //#endregion
 }

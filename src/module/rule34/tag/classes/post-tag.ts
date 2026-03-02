@@ -11,9 +11,12 @@ implements Pick<BaseTag<T>, "name" | "count" | "type"> {
         "artist": "Artist",
         "tag": "General",
         "metadata": "Metadata",
-        [null]: "Ambiguous"
+        [null as any as "null"]: "Ambiguous"
     } satisfies {
-        [K in RawPostJSON<true>["tag_info"][number]["type"]]:
+        [K in Exclude<
+            RawPostJSON<true>["tag_info"][number]["type"],
+            null
+        > | "null"]:
             keyof typeof TagType;
     }
     
@@ -23,19 +26,25 @@ implements Pick<BaseTag<T>, "name" | "count" | "type"> {
 
     //#region constructor
     static fromRaw(raw: RawPostJSON<true>["tag_info"][number]) {
-        return this.fromObject({
+        return PostTag.fromObject({
             name: raw.tag,
             count: raw.count,
-            type: this.RAW_TAG_TYPE[raw.type]
+            type: TagType[this.RAW_TAG_TYPE[
+                raw.type as keyof typeof this.RAW_TAG_TYPE
+            ]]
             // ERROR
         });
     }
 
-    static fromObject(object: ConstructorParameters<typeof this>[0]) {
-        return new this(object);
+    static fromObject(object: {
+        name: string;
+        count: number;
+        type: TagType;
+    }) {
+        return new PostTag(object);
     }
 
-    protected constructor (object: {
+    constructor (object: {
         name: string;
         count: number;
         type: T;
