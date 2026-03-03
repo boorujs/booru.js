@@ -4,10 +4,11 @@
   1. Figure out how to compile to both `.cjs` and `.mjs`
   2. Figure out the directories of `.cjs`, `.mjs`, and `.d.ts`
   * Links:
-    - [Stack Overflow - How to support es modules and commonjs modules at the
-      same time](<https://stackoverflow.com/questions/74937600/>)
+    - [Stack Overflow -- How to support es modules and commonjs modules at the
+      same time]
   * Samples:
-    - ```json
+    - From [ESM>CDN: How to Use]:
+      ```json
       "exports": {
         ".": {
           "import": "./dist/mjs/index.js",
@@ -21,3 +22,9 @@
         }
       },
       ```
+
+[Stack Overflow -- How to support es modules and commonjs modules at the same
+time]:
+  <https://stackoverflow.com/questions/74937600/>
+[ESM>CDN: How to Use]:
+  <https://esm.sh/#:~:text=define%20the%20exports%20field>
