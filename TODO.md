@@ -1,5 +1,12 @@
 # To-do
 
+## Elsewhere
+
+- Add error safeguards for Rule 34 API
+  > You'd be surprised just how god-awful it can be to you.
+
+## Home
+
 - **TS Compilation:**
   1. Figure out how to compile to both `.cjs` and `.mjs`
   2. Figure out the directories of `.cjs`, `.mjs`, and `.d.ts`
