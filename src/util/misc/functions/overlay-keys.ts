@@ -6,8 +6,8 @@ export function overlayKeys<
     overlay: N
 ): { [K in Exclude<keyof O, keyof N>]: O[K] } & N
 {
-    Object.entries(overlay).forEach(([ key, value ]) =>
-        object[key] = value
+    Object.entries(overlay).forEach(
+        ([ key, value ]: [ keyof N, N[keyof N] ]) => object[key] = value
     );
     return object;
 }
