@@ -17,13 +17,13 @@ All of the following parameters are optional. ("Defaults to _x_" means the retur
     site
     - If not specified, returns all posts applicable to other parameters
     - See: [cheatsheet](../search/.given.md)
-  - **`id`**: Id of a single post to return
+  - **`id`**: ID of a single post to return
     - Integer
   - **`limit`**: The amount of posts returned
     - Integer
     - Hard limit of 1000 per request
     - Defaults to 100
-  - **`pid`**: "Page id"; the 0-index offset of returned posts based on `limit`
+  - **`pid`**: "Page ID"; the 0-index offset of returned posts based on `limit`
     - Integer
     - Defaults to 0
   - **`json`**: Whether to return results formatted as JSON or XML
@@ -238,9 +238,9 @@ The post objects of each format have mostly mutual properties.
   - **`sample_height`**: The height of the downsampled image in pixels
     - Integer
   - **`preview_url`**: The CDN URL of a highly downsampled version of the main file
-  - **`id`**: The unique id of the post
+  - **`id`**: The unique ID of the post
     - Integer
-  - **`parent_id`**: The id of the post set as the parent
+  - **`parent_id`**: The ID of the post set as the parent
     - Integer, unless unset:
       - XML returns an empty string
       - JSON returns `0`
@@ -278,7 +278,7 @@ XML posts have notable properties not found on JSON posts:
     - Integer
   - **`preview_height`**: The height of the preview image in pixels
     - Integer
-  - **`creator_id`**: The id of the creator of the post
+  - **`creator_id`**: The ID of the creator of the post
     - Integer
   - **`has_children`**: Whether one or more posts have the post set as their
     parent
