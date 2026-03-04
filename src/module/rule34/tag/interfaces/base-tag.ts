@@ -5,7 +5,7 @@ import { tagWiki as getURL } from "../../util/functions/site-url.ts";
 export abstract class BaseTag<T extends TagType = TagType> {
     /** The name and value of the tag. */
     abstract name: string;
-    /** The unique id of the tag. */
+    /** The unique ID of the tag. */
     abstract id: number;
     /** The amount of posts that use this tag. */
     abstract count: number;
