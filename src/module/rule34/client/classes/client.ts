@@ -18,12 +18,39 @@ export class Client {
     
     /** The user tied to the client. */
     self: ClientUser;
-
-    APIURL = <S extends keyof APIURLParameterMap>(
-        s: S,
-        params: Omit<APIURLParameterMap[S]["params"], keyof Authentication>,
-        ...args: APIURLParameterMap[S]["args"]
-    ) => APIURL(s, { ...params, ...this.#auth }, ...args);
+    
+    // TODO: create gh issue on func overloads as generic type params
+    /* NOTE: this is going to make me kill myself.
+     * 
+     * i have spent countless hours trying to type this correctly so that it
+     * acts *equivalently* to APIURL but that credentials aren't required in
+     * params. typescript's (surely fully implemented) overloading feature makes
+     * this IMPOSSIBLE because generic types assume the last-defined overload of
+     * a function, meaning usage of APIURL as a generic type parameter narrows
+     * down to a grand:
+     * 
+     * (s: "post", params: { ...; }, bothFormats: true) => { json; xml; }
+     * 
+     * thank you microsoft for pushing an expansively typed version of a
+     * (notoriously) slow enough and deeply flawed language on the programmer
+     * market and making my life trying to engage in a hobby a living hell. i
+     * hope each and every one of the marketers of copilot and vibe coding gets
+     * analraped until their excruciated death.
+     * 
+     * to "vibe" "coders" who believe themselves to be legitimate programmers i
+     * say this to you: go learn a hobby or get a job you can actually do
+     * without the slave labour of the Ocean Boiler and Societal Development
+     * Retarder 2000. you are a margin of the reason that windows 11 is
+     * developed the way it is and that it has advertisements engrained into its
+     * software.
+     * 
+     * and to the faggots that participate in the black market/cashgrab scheme
+     * of vibe coding entire websites you get this from me: kill yourself.
+     * preferably as long and painfully as possible, but however you do it, the
+     * world needs you gone.
+     */
+    APIURL = (s: string, params: any, ...args: any[]) =>
+        <any> (APIURL as any)(s, { ...params, ...this.#auth }, ...args);
     
     constructor (options: ClientOptions) {
         this.#auth = options.auth;
@@ -36,8 +63,7 @@ export class Client {
      */
     async test(): Promise<this | never> {
         if (!this.authorized) {
-            const response = await fetch(APIURL("post", {
-                ...this.#auth,
+            const response = await fetch(this.APIURL("post", {
                 limit: 0,
                 json: 1
             })).then(r => r.text());
@@ -83,8 +109,8 @@ export class Client {
     ): Promise<Posts> {
         const url = this.APIURL("post", {
             tags: query,
-            limit: options.perPage,
-            pid: options.page
+            limit: options?.perPage ?? 42,
+            pid: options?.page ?? 0
         }, true);
 
         return await resolvePromisesOfObject({
@@ -93,5 +119,16 @@ export class Client {
             // API REQUEST
             json: fetchJSON(url.json)
         }).then(response => Posts.fromRaw(this, query, response));
+    }
+
+    /**
+     * Returns the post at a given ID.
+     * @param id The given ID.
+     */
+    async getPost(id: number): Promise<Post | null> {
+        return await this.search(`id:${id}`, {
+            perPage: 1,
+            page: 0
+        }).then(p => p[0] ?? null);
     }
 }
