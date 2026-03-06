@@ -34,6 +34,10 @@ The API also requires that [two additional authentication parameters] follow.
 All request data sent to the API is sent as URL parameters. This includes
 authentication.
 
+> [!TIP]
+> The only exception to requiring authentication for the API is fetching
+> autocomplete results.
+
 Requests must have two extra parameters, those being `api_key` and
 `user_id`. If authentication is invalid, you will always get the following
 response:
@@ -48,10 +52,6 @@ response:
 > [!NOTE]
 > The preceding sample is formatted for better readability, but the actual
 > response is formatted differently.
-
-> [!TIP]
-> The only exception to needing authentication to use the API is with
-> autocomplete results.
 
 Beware that, because of the length of API keys, API URLs tend to look very
 lengthy. It is recommended practice to use utilities and functions to convert
