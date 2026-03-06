@@ -1,4 +1,4 @@
-import { overlayKeys } from "../../../../util/misc/functions/overlay-keys.ts";
+import { overlayKeys } from "../../../../util/object/functions/overlay-keys.ts";
 import type { BaseTag } from "../interfaces/base-tag.ts";
 import type { RawAutocompleteTags } from "../../api/raw/interface/raw-autocomplete-tag.ts";
 

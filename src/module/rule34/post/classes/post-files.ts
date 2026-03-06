@@ -1,5 +1,5 @@
 import { PostFileType } from "../enums/post-file-type.ts";
-import { overlayKeys } from "../../../../util/misc/functions/overlay-keys.ts";
+import { overlayKeys } from "../../../../util/object/functions/overlay-keys.ts";
 import type { RawPostJSON } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostXML } from "../../api/raw/interface/raw-posts-xml.ts";
 

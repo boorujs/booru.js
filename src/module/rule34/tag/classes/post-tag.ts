@@ -1,5 +1,5 @@
 import { TagType } from "../enums/tag-type.ts";
-import { overlayKeys } from "../../../../util/misc/functions/overlay-keys.ts";
+import { overlayKeys } from "../../../../util/object/functions/overlay-keys.ts";
 import type { BaseTag } from "../interfaces/base-tag.ts";
 import type { RawPostJSON } from "../../api/raw/interface/raw-posts-json.ts";
 

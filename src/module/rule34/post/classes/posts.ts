@@ -1,5 +1,5 @@
 import { Post } from "./post.ts";
-import { overlayKeys } from "../../../../util/misc/functions/overlay-keys.ts";
+import { overlayKeys } from "../../../../util/object/functions/overlay-keys.ts";
 import type { Client } from "../../client/classes/client.ts";
 import type { RawPostJSON, RawPostsJSON } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostsXML } from "../../api/raw/interface/raw-posts-xml.ts";

@@ -1,5 +1,5 @@
 import { BaseUser } from "../../misc/interfaces/base-user.ts";
-import { overlayKeys } from "../../../../util/misc/functions/overlay-keys.ts";
+import { overlayKeys } from "../../../../util/object/functions/overlay-keys.ts";
 
 /** The creator of a post. */
 export class PostAuthor extends BaseUser {
