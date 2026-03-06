@@ -52,6 +52,7 @@ export class Client {
      */
     async test(): Promise<this | never> {
         if (!this.authorized) {
+            // API REQUEST
             const response = await fetch(this.apiUrl("post", {
                 limit: 0,
                 json: 1
