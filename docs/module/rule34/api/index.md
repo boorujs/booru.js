@@ -63,6 +63,8 @@ the following response[^formatted]:
 > I, "chiptumor", should not be held responsible for inappropriate usage of the
 > Rule 34 API nor damages to or damages via any contact methods provided below.
 
+[the original documentation]: <https://api.rule34.xxx/>
+
 API keys are created with initial rate limits[^NC-default-limit]. This limit
 may be changed at any time.
 
