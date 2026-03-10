@@ -7,7 +7,7 @@ export class PostTags extends Array<PostTag> {
     protected string: string;
     
     ofCategory<T extends TagType>(category: T): PostTag<T>[] {
-        return this.filter(tag => tag.type === category) as PostTag<T>[];
+        return Array.from(this).filter(tag => tag.type === category) as PostTag<T>[];
     }
 
     override toString(): string { return this.string; }
