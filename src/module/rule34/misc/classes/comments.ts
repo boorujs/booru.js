@@ -12,7 +12,8 @@ export class Comments extends Array<Comment> {
         postId?: number;
         array: Comment[];
     }) {
-        overlayKeys(this, object);
+        super(...object.array);
+        this.postId = object.postId;
     }
 
     static fromRaw(raw: RawComments, postId?: number) {
