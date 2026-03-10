@@ -38,9 +38,11 @@ export function apiUrl<S extends keyof ApiUrlParameterMap>(
             params: params
         });
         case "post": if (args[0]) return {
-            xml:  getURL(s, { ... params, json: 0 }),
-            json: getURL(s, { ... params, json: 1 })
+            xml:  getURL(s, { ...params, json: 0 }),
+            json: getURL(s, { ...params, json: 1 })
         };
+        case "comment":
+        default:
             return getURL(s, params);
     }
 }
