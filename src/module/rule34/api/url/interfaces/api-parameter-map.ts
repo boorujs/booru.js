@@ -11,10 +11,20 @@ export interface ApiUrlParameterMap {
             id?: number;
             limit?: number;
             pid?: number;
-        } & (
-            | { json?: 0; }
-            | { json: 1; fields?: "tag_info"; }
-        );
+            json?: 0 | 1;
+            fields?: "tag_info";
+        };
         args: [ bothFormats?: boolean ];
+    };
+    "comment": {
+        params: Authentication & {
+            post_id?: number;
+        };
+    };
+    "tag": {
+        params: {
+            id?: number;
+            limit?: number;
+        };
     };
 }
