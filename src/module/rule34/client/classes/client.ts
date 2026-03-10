@@ -1,6 +1,7 @@
 import { ClientUser } from "./client-user.ts";
 import { AUTHENTICATION_RESPONSE } from "../constants/authentication-response.ts";
 import { apiUrl } from "../../api/url/functions/api-url.ts";
+import { Comments } from "../../misc/classes/comments.ts";
 import { Post } from "../../post/classes/post.ts";
 import { Posts } from "../../post/classes/posts.ts";
 import { AutocompleteTags } from "../../tag/classes/autocomplete-tags.ts";
@@ -21,10 +22,8 @@ export class Client {
     /** The user tied to the client. */
     self: ClientUser;
     
-    // TODO: create gh issue on func overloads as generic type params
-    /* NOTE: this can be typed better.
-     * 
-     * i want to type this, using (typeof) apiUrl itself, so that it acts
+    // TODO: this can be typed better
+    /* i want to type this, using (typeof) apiUrl itself, so that it acts
      * *equivalently* to apiUrl but that credentials aren't required in params.
      * 
      * typescript's (surely fully implemented) overloading feature makes this
@@ -77,8 +76,7 @@ export class Client {
     static AUTOCOMPLETE_LAST_TAG_REGEX = /(?<= ?)[^ ]+$/;
 
     /**
-     * Returns autocomplete suggestions for a given tag.
-     * @param tag The incomplete tag.
+     * Returns autocomplete suggestions for an incomplete tag.
      */
     async autocomplete(tag: string): Promise<AutocompleteTags> {
         return await fetchJson(this.apiUrl(
@@ -90,8 +88,6 @@ export class Client {
 
     /**
      * Returns posts resulting from a search query.
-     * @param query The search query.
-     * @param options The options to affect the returned results.
      */
     async search(
         query: string,
@@ -114,12 +110,22 @@ export class Client {
 
     /**
      * Returns the post at a given ID.
-     * @param id The given ID.
      */
     async getPost(id: number): Promise<Post | null> {
         return await this.search(`id:${id}`, {
             perPage: 1,
             page: 0
         }).then(p => p[0] ?? null);
+    }
+
+    /**
+     * Returns an array of comments.
+     * @param id The post ID to get the comments of. If unspecified, comments
+     * across all posts are returned.
+     */
+    async getComments(id?: number): Promise<Comments> {
+        return await fetchXml(this.apiUrl("comment", {
+            post_id: id
+        })).then(i => Comments.fromRaw(i));
     }
 }
