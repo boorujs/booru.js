@@ -13,6 +13,7 @@ import type { ClientOptions } from "../interfaces/client-options.ts";
 import type { RawPostsJson } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostsXml } from "../../api/raw/interface/raw-posts-xml.ts";
 import type { RawComments } from "../../api/raw/interface/raw-comments.ts";
+import type { ApiUrlParameterMap } from "../../api/url/interfaces/api-parameter-map.ts";
 
 /** Client to retrieve data from Rule 34 at rule34.xxx. */
 export class Client {
@@ -24,22 +25,30 @@ export class Client {
     self: ClientUser;
     
     // TODO: this can be typed better
-    /* i want to type this, using (typeof) apiUrl itself, so that it acts
-     * *equivalently* to apiUrl but that credentials aren't required in params.
+    /* i want to type this, using (`typeof`) `apiUrl` itself, so that it acts
+     * *equivalently* to `apiUrl` but that credentials aren't required in params.
      * 
      * typescript's (surely fully implemented) overloading feature makes this
-     * IMPOSSIBLE by using apiUrl directly because generic types assume the last
-     * defined overload of a function parameter, meaning usage of apiUrl as a
-     * generic type parameter narrows down to a grand:
+     * IMPOSSIBLE by using `apiUrl` directly because generic types assume the
+     * last defined overload of a function parameter, meaning usage of `apiUrl`
+     * as a generic type parameter narrows down to a grand:
      * 
      *     (s: "post", params: { ...; }, bothFormats: true) => { json; xml; }
      * 
      * this makes the only way to achieve what im looking for accessible via the
      * good ol' ctrl + (c | v). which ive been advised against using as much as
      * possible. and honestly id rather die than deal with that currently.
+     * 
+     * UPDATE: as of 0.1.1-alpha this is typed a bit better using
+     * `ApiUrlParameterMap` instead of abusing the hell out of `any`. the only
+     * thing `any` must be used for now is the return type until im willing to
+     * copy the overloads too
      */
-    apiUrl = (s: string, params: any, ...args: any[]) =>
-        <any> (apiUrl as any)(s, { ...params, ...this.#auth }, ...args);
+    apiUrl = <S extends keyof ApiUrlParameterMap>(
+        s: S,
+        params: Omit<ApiUrlParameterMap[S]["params"], keyof Authentication>,
+        ...args: ApiUrlParameterMap[S]["args"]
+    ): any => apiUrl(s, { ...params, ...this.#auth }, ...args);
     
     constructor (options: ClientOptions) {
         this.#auth = options.auth;
