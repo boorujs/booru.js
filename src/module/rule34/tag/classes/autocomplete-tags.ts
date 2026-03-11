@@ -9,7 +9,10 @@ export class AutocompleteTags {
     tags: AutocompleteTag[];
     
     constructor (array: AutocompleteTag[], tag: string) {
-        this.tags = array.filter(i => i.isReal());
+        this.tags = array.slice(
+            0,
+            array.findIndex(i => !i.isReal()) + 1
+        );
         this.incompleteTag = tag;
     }
 
