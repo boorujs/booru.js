@@ -3,20 +3,19 @@ import type { TagType } from "../enums/tag-type.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 
 /** Array of tags found under a post. */
-export class PostTags extends Array<PostTag> {
-    /** The raw string of tags. */
-    protected string: string;
-    
+export class PostTags extends Array<PostTag> {    
     /** Returns an array of the tags that match the given type. */
     ofCategory<T extends TagType>(category: T): PostTag<T>[] {
         return Array.from(this).filter(tag => tag.type === category) as PostTag<T>[];
     }
 
-    override toString(): string { return this.string; }
+    /** Returns a list of the tags' names concatenated with spaces. */
+    override toString(): string {
+        return this.map(i => i.name).join(" ");
+    }
 
-    constructor (object: { string: string; tags: PostTag[] }) {
-        super(...object.tags);
-        this.string = object.string;
+    constructor (array: PostTag[]) {
+        super(...array);
     }
 
     static fromRaw(raw: RawPostJson<true>) {
