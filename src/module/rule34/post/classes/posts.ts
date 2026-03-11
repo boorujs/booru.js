@@ -12,7 +12,6 @@ export class Posts extends Array<Post> {
     /** The offset of the returned results. */
     offset: number;
 
-    // TODO: clean this bullshit up what the hell
     constructor (array: Post[], object: {
         query: string;
         count: number;

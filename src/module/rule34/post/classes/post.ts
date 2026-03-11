@@ -14,21 +14,34 @@ export class Post {
     protected hasChildren: boolean;
     protected commentCount: boolean;
 
+    /** The CDN media files of this post. */
     file: PostFiles;
 
+    /** The unique ID of this post. */
     id: number;
+    /** The parent of this post if one exists. */
     parent: number | null;
+    /** The user-provided source of this post. Usually, but not always, a URL.
+      */
     source: string;
+    /** The maturity rating of this post's media. */
     rating: PostRating;
+    /** The creator of the post. */
     author: PostAuthor;
 
+    /** The date of this post's creation. */
     created: Date;
+    /** The date of this post's last modification. */
     modified: Date;
+    /** The moderation status of this post. */
     status: PostStatus;
 
+    /** The total upvotes given to this post. */
     score: number;
+    /** The list of tags this post is associated with. */
     tags: PostTags;
 
+    /** Returns the user comments under this post. */
     async getComments(): Promise<Comments> {
         return await this.client.getComments(this.id);
     }

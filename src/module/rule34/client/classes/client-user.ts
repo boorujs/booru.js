@@ -5,7 +5,9 @@ import type { BaseUser } from "../../misc/interfaces/base-user.ts";
 export class ClientUser implements Pick<BaseUser, "id"> {
     id: number;
 
-    constructor (object: { id: number; }) {
+    constructor (object: {
+        id: number;
+    }) {
         this.id = object.id;
     }
 

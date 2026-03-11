@@ -134,6 +134,7 @@ export class Client {
      * across all posts are returned.
      */
     async getComments(id?: number): Promise<Comments> {
+        // API REQUEST
         return await fetchXml(this.apiUrl("comment", {
             post_id: id
         })).then(i => Comments.fromRaw(i as any as RawComments));

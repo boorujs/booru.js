@@ -4,7 +4,9 @@ import type { RawPostXml } from "../../api/raw/interface/raw-posts-xml.ts";
 
 /** A set of the files of a post. */
 export class PostFile {
+    /** The CDN URL of the media file. */
     url: string;
+    /** The dimensions of the media file. */
     size: [ width: number, height: number ];
     
     constructor (object: {
@@ -18,12 +20,27 @@ export class PostFile {
 
 /** The files of a post. */
 export class PostFiles extends PostFile {
-    downsample: PostFile & { exists: boolean; };
+    /**
+     * The downsampled version of the main file, if one exists; otherwise a
+     * mirror of the main file.
+     */
+    downsample: PostFile & {
+        /** Whether a downsample exists for this post's main file. */
+        exists: boolean;
+    };
+    /**
+     * A very downsampled version of the main file, intended for use as a
+     * thumbnail.
+     */
     thumbnail: PostFile;
 
+    /** Whether this post's media is static, an animated image, or a video. */
     type: PostFileType;
+    /** The directory number of this post's CDN files. */
     directory: number;
+    /** The filename (excluding the extension) of this post's CDN files. */
     hash: string;
+    /** The file extension of this post's main CDN file. */
     extension: string;
     
     static FILE_EXTENSIONS = <const> {
