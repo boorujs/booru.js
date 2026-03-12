@@ -49,6 +49,23 @@ const ERROR_CODE_LITERAL = <const> {
     }),
 
     //#region RULE34
+    RULE34_NO_AUTH_RESPONSE_DATA: () => ({
+        message: "An empty response was returned from api.rule34.xxx.",
+        hint: concat.line( 
+            concat.space(
+                "Rule 34's API returned a data-less response. This likely means",
+                "that Rule 34's main server is currently down for maintenance.",
+                "It is recommended by their staff to check their Discord",
+                "server for more information."
+            ),
+            concat.space(
+                "This may also have happened for another reason; check the",
+                "site for a big, red banner at the top that says similar. If",
+                "there's no evidence that their main server is down, _please_",
+                "file an issue on GitHub with all the info you can gather."
+            )
+        )
+    }),
     RULE34_UNEXPECTED_AUTH_RESPONSE: (response: string) => ({
         message: "Unexpected response when validating authentication.",
         hint: concat.line(

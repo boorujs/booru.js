@@ -69,11 +69,13 @@ export class Client {
             })).then(r => r.text());
 
             switch (response) {
-                case AUTHENTICATION_RESPONSE.EMPTY_ARRAY:
+                case AUTHENTICATION_RESPONSE.JSON_EMPTY:
                     this.authorized = true;
                     break;
-                case AUTHENTICATION_RESPONSE.MISSING_AUTHENTICATION:
+                case AUTHENTICATION_RESPONSE.JSON_MISSING_AUTHENTICATION:
                     BooruAbuseError.throw("INVALID_AUTH");
+                case AUTHENTICATION_RESPONSE.NO_RESPONSE_DATA:
+                    BooruAbuseError.throw("RULE34_NO_AUTH_RESPONSE_DATA");
                 default:
                     BooruAbuseError.throw(
                         "RULE34_UNEXPECTED_AUTH_RESPONSE", [ response ]
