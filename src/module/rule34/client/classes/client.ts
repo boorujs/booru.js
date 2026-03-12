@@ -100,7 +100,7 @@ export class Client {
         )).then((raw: RawAutocompleteTags) => {
             const array = raw.map(i => AutocompleteTag.fromRaw(i));
             return array.slice(0, array.findIndex(
-                i => !Client.MALFORMED_AUTOCOMPLETE_REGEX.test(i)
+                i => !Client.MALFORMED_AUTOCOMPLETE_REGEX.test(i.name)
             ));
         });
     }
@@ -138,7 +138,7 @@ export class Client {
         return await this.search(`id:${id}`, {
             perPage: 1,
             page: 0
-        }).then(p => p[0] ?? null);
+        }).then(p => p.results[0] ?? null);
     }
 
     /**
