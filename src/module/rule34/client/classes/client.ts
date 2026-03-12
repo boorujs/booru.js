@@ -126,7 +126,7 @@ export class Client {
             xml: fetchXml(url.xml) as Promise<RawPostsXml>,
             // API REQUEST
             json: fetchJson(url.json) as Promise<RawPostsJson>
-        }).then(response => Search.fromRaw(this, query, response));
+        }).then(response => Search.fromRaw(this, response));
     }
 
     /**
