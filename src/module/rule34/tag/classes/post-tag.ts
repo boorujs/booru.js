@@ -2,7 +2,7 @@ import { TagType } from "../enums/tag-type.ts";
 import type { BaseTag } from "../interfaces/base-tag.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 
-/** A tag attributed to  a post. */
+/** A tag attributed to a post. */
 export class PostTag<T extends TagType = TagType>
 implements Pick<BaseTag<T>, "name" | "count" | "type"> {
     name: string;
