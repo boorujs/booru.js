@@ -1,7 +1,9 @@
 # Booru.js
 
-Booru.js is an NPM package to make interaction with boorus and other imageboards a breeze.
+Booru.js is an NPM package intended to make interaction with boorus and other
+imageboards a breeze.
 
-This is purely a passion project with no other motivations; I work on this for fun.
+## Work-in-progress
 
-This package has yet to be fully tested, so issues are extremely helpful right now. I appreciate all the errors I can get!
+This package is a work-in-progress. Any and all issues and feedback are heavily
+appreciated.
