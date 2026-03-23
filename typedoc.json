@@ -1,6 +1,6 @@
 {
   "name": "Booru.js",
-  "out": "./docs/typedoc/",
+  "out": "./typedoc/",
   "readme": "./src/typedoc.readme.md",
   "entryPoints": ["./src/index.ts"],
   "kindSortOrder": [
