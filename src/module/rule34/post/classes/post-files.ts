@@ -1,4 +1,4 @@
-import { PostFileType } from "../enums/post-file-type.ts";
+import { MediaType } from "../../../../global/enums/media-type.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostXml } from "../../api/raw/interface/raw-posts-xml.ts";
 
@@ -35,7 +35,7 @@ export class PostFiles extends PostFile {
     thumbnail: PostFile;
 
     /** Whether this post's media is static, an animated image, or a video. */
-    type: PostFileType;
+    type: MediaType;
     /** The directory number of this post's CDN files. */
     directory: number;
     /** The filename (excluding the extension) of this post's CDN files. */
@@ -48,7 +48,7 @@ export class PostFiles extends PostFile {
         Animated: [ "gif" ],
         Video: [ "mp4" ]
     } satisfies {
-        [K in keyof typeof PostFileType]: string[];
+        [K in keyof typeof MediaType]: string[];
     };
 
     constructor (object: {
@@ -73,7 +73,7 @@ export class PostFiles extends PostFile {
 
         this.extension = object.image.match(/(?<=\.)\w+$/)![0];
 
-        this.type = PostFileType[
+        this.type = MediaType[
             (Object.keys(PostFiles.FILE_EXTENSIONS) as
                 (keyof typeof PostFiles.FILE_EXTENSIONS)[])
             .find(key =>
