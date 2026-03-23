@@ -19,7 +19,7 @@
     "docs": "npx typedoc"
   },
   "devDependencies": {
-    "typedoc": "^0.28.16",
+    "typedoc": "^0.28.18",
     "typescript": "^5.9.3"
   },
   "dependencies": {
