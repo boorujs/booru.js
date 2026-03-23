@@ -1,6 +1,6 @@
 import { ERROR_CODE, ERROR_ISSUE_MESSAGE, type ErrorCode } from "../constants/error-code.ts";
 
-export class BooruAbuseError extends Error {
+export class BoorujsError extends Error {
     /** The unique error code. */
     code: ErrorCode;
     /** The hint explaining the error. */
@@ -10,7 +10,7 @@ export class BooruAbuseError extends Error {
 
     //#region constructor
     static throw(
-        ...args: ConstructorParameters<typeof BooruAbuseError>
+        ...args: ConstructorParameters<typeof BoorujsError>
     ): never {
         throw new this(...args);
     }

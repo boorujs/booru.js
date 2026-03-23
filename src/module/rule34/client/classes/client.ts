@@ -5,7 +5,7 @@ import { Comments } from "../../misc/classes/comments.ts";
 import { Post } from "../../post/classes/post.ts";
 import { Search } from "../../post/classes/search.ts";
 import { AutocompleteTag } from "../../tag/classes/autocomplete-tag.ts";
-import { BooruAbuseError } from "../../../../error/classes/booru-abuse-error.ts";
+import { BoorujsError } from "../../../../error/classes/boorujs-error.ts";
 import { resolvePromisesOfObject } from "../../../../util/object/functions/resolve-promises-of-object.ts";
 import { fetchJson, fetchXml } from "../../../../util/rest.ts";
 import type { Authentication } from "../interfaces/authentication.ts";
@@ -73,11 +73,11 @@ export class Client {
                     this.authorized = true;
                     break;
                 case AUTHENTICATION_RESPONSE.JSON_MISSING_AUTHENTICATION:
-                    BooruAbuseError.throw("INVALID_AUTH");
+                    BoorujsError.throw("INVALID_AUTH");
                 case AUTHENTICATION_RESPONSE.NO_RESPONSE_DATA:
-                    BooruAbuseError.throw("RULE34_NO_AUTH_RESPONSE_DATA");
+                    BoorujsError.throw("RULE34_NO_AUTH_RESPONSE_DATA");
                 default:
-                    BooruAbuseError.throw(
+                    BoorujsError.throw(
                         "RULE34_UNEXPECTED_AUTH_RESPONSE", [ response ]
                     );
             }

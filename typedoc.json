@@ -1,5 +1,5 @@
 {
-  "name": "Booru Abuse",
+  "name": "Booru.js",
   "out": "./docs/typedoc/",
   "readme": "./src/typedoc.readme.md",
   "entryPoints": ["./src/index.ts"],

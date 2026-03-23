@@ -1,6 +1,6 @@
-# Booru Abuse
+# Booru.js
 
-Booru Abuse is an NPM package to make interaction with boorus and other imageboards a breeze.
+Booru.js is an NPM package to make interaction with boorus and other imageboards a breeze.
 
 This is purely a passion project with no other motivations; I work on this for fun.
 
