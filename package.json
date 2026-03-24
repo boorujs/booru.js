@@ -1,6 +1,6 @@
 {
   "name": "booru.js",
-  "version": "0.0.1",
+  "version": "0.1.1-beta",
   "description": "An expansive API package for imageboards",
   "homepage": "https://github.com/boorujs/booru.js/#readme",
   "bugs": {
