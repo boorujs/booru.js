@@ -1,13 +1,18 @@
 [
   {
-    "count": 5931,
-    "type": "copyright",
-    "tag": "terraria"
+    "count": 46177,
+    "type": "metadata",
+    "tag": "2026"
   },
   {
-    "count": 1227,
-    "type": "character",
-    "tag": "zoologist_(terraria)"
+    "count": 468967,
+    "type": "metadata",
+    "tag": "2d"
+  },
+  {
+    "count": 116617,
+    "type": "metadata",
+    "tag": "2d_(artwork)"
   },
   {
     "count": 49,
@@ -195,6 +200,11 @@
     "tag": "tank_top"
   },
   {
+    "count": 5931,
+    "type": "copyright",
+    "tag": "terraria"
+  },
+  {
     "count": 15855,
     "type": "tag",
     "tag": "thicc"
@@ -215,18 +225,8 @@
     "tag": "wide_hips"
   },
   {
-    "count": 46177,
-    "type": "metadata",
-    "tag": "2026"
-  },
-  {
-    "count": 468967,
-    "type": "metadata",
-    "tag": "2d"
-  },
-  {
-    "count": 116617,
-    "type": "metadata",
-    "tag": "2d_(artwork)"
+    "count": 1227,
+    "type": "character",
+    "tag": "zoologist_(terraria)"
   }
 ]
