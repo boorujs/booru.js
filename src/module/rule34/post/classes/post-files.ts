@@ -6,18 +6,18 @@ import type { RawPostXml } from "../../api/raw/interface/raw-posts-xml.ts";
 /** The files of a post. */
 export class PostFiles extends PostFile {
     /**
-     * The downsampled version of the main file, if one exists; otherwise a
-     * mirror of the main file.
+     * A downsampled version of the main file, if one exists; otherwise a mirror
+     * of the main file.
      */
-    downsample: PostFile & {
-        /** Whether a downsample exists for this post's main file. */
+    sample: PostFile & {
+        /** Whether the "downsample" is the same as the main file. */
         exists: boolean;
     };
     /**
-     * A very downsampled version of the main file, intended for use as a
+     * A very downsampled version of the main file. Typically used as a
      * thumbnail.
      */
-    thumbnail: PostFile;
+    preview: PostFile;
 
     /** Whether this post's media is static, an animated image, or a video. */
     type: MediaType;
@@ -39,11 +39,11 @@ export class PostFiles extends PostFile {
     constructor (object: {
         url: string;
         size: [ width: number, height: number ];
-        downsample: {
+        sample: {
             url: string;
             size: [ width: number, height: number ];
         };
-        thumbnail: {
+        preview: {
             url: string;
             size: [ width: number, height: number ];
         };
@@ -52,9 +52,9 @@ export class PostFiles extends PostFile {
         image: string;
     }) {
         super(object);
-        this.downsample = <any> new PostFile(object.downsample);
-        this.downsample.exists = this.url !== this.downsample.url;
-        this.thumbnail = new PostFile(object.thumbnail);
+        this.sample = <any> new PostFile(object.sample);
+        this.sample.exists = this.url !== this.sample.url;
+        this.preview = new PostFile(object.preview);
 
         const extension = object.image.match(/(?<=\.)\w+$/)![0];
 
@@ -79,11 +79,11 @@ export class PostFiles extends PostFile {
         return new this({
             url: json.file_url,
             size: [ json.width, json.height ],
-            downsample: {
+            sample: {
                 url: json.sample_url,
                 size: [ json.sample_width, json.sample_height ]
             },
-            thumbnail: {
+            preview: {
                 url: json.preview_url,
                 size: [
                     parseInt(xml.preview_width),
