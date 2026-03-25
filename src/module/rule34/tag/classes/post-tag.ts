@@ -1,12 +1,12 @@
 import { TagType } from "../enums/tag-type.ts";
-import type { BaseTag } from "../interfaces/base-tag.ts";
+import { BaseTag } from "../interfaces/base-tag.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 
 /** A tag attributed to a post. */
 export class PostTag<T extends TagType = TagType> extends BaseTag<T> {
     name: string;
     count: number;
-    type: T;
+    override type: T;
     
     static RAW_TAG_TYPE = {
         "copyright": "Copyright",
@@ -28,6 +28,7 @@ export class PostTag<T extends TagType = TagType> extends BaseTag<T> {
         count: number;
         type: T;
     }) {
+        super();
         this.name = object.name;
         this.count = object.count;
         this.type = object.type;
