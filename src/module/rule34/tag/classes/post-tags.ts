@@ -35,11 +35,11 @@ export class PostTags extends Array<PostTag> {
         return this.map(i => i.name).join(" ");
     }
 
-    constructor (array: PostTag[]) {
-        super(...array);
+    constructor (...items: PostTag[]) {
+        super(...items);
     }
 
     static fromRaw(raw: RawPostJson<true>) {
-        return new this(raw.tag_info.map(i => PostTag.fromRaw(i)));
+        return new this(...raw.tag_info.map(i => PostTag.fromRaw(i)));
     }
 }

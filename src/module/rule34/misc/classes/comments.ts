@@ -4,7 +4,7 @@ import type { RawComments } from "../../api/raw/interface/raw-comments.ts";
 /**
  * An array of comments.
  */
-export class Comments extends Array<Comment> {
+export class Comments {
     /**
      * The post this list of comments are found under.
      * 
@@ -12,20 +12,21 @@ export class Comments extends Array<Comment> {
      * posts on the site.
      */
     postId?: number;
+    results: Comment[];
 
     constructor (object: {
         postId?: number;
-        array: Comment[];
+        results: Comment[];
     }) {
-        super(...object.array);
         if (object.postId) this.postId = object.postId;
+        this.results = object.results;
     }
 
     static fromRaw(raw: RawComments, postId?: number) {
         const array = raw.children.map((v, i) => Comment.fromRaw(v, i));
         return new this(postId
-            ? { postId, array }
-            : { array }
+            ? { postId, results: array }
+            : { results: array }
         );
     }
 }
