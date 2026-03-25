@@ -24,11 +24,8 @@ export class Post {
     id: number;
     /** The parent of this post if one exists. */
     parent: number | null;
-    /**
-     * The user-provided source of this post.
-     * 
-     * Commonly a URL, but not bound by any kind of string.
-     */
+    /** The user-provided source of this post. Commonly a URL, but may be any
+     * string. */
     source: string;
     /** The maturity rating of this post's media. */
     rating: PostRating;

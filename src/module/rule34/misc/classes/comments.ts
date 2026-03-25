@@ -1,9 +1,7 @@
 import { Comment } from "./comment.ts";
 import type { RawComments } from "../../api/raw/interface/raw-comments.ts";
 
-/**
- * An array of comments.
- */
+/** Data about an array of comments. */
 export class Comments {
     /**
      * The post this list of comments are found under.
@@ -12,6 +10,7 @@ export class Comments {
      * posts on the site.
      */
     postId?: number;
+    /** The array of comments. */
     results: Comment[];
 
     constructor (object: {

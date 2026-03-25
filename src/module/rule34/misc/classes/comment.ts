@@ -1,9 +1,7 @@
 import { CommentAuthor } from "./comment-author.ts";
 import type { RawComment } from "../../api/raw/interface/raw-comments.ts";
 
-/**
- * A comment under a post.
- */
+/** A comment under a post. */
 export class Comment {
     /** The ID of the post over this comment. */
     postId: number;
@@ -13,10 +11,8 @@ export class Comment {
     author: CommentAuthor;
     /** The text content of the comment. */
     body: string;
-    /**
-     * The zero-indexed position of this comment in the comment list of its
-     * post.
-     */
+    /** The zero-indexed position of this comment in the comment list of its
+     * post. */
     index: number;
 
     constructor (object: {

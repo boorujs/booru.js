@@ -5,18 +5,14 @@ import type { RawPostXml } from "../../api/raw/interface/raw-posts-xml.ts";
 
 /** The files of a post. */
 export class PostFiles extends PostFile {
-    /**
-     * A downsampled version of the main file, if one exists; otherwise a mirror
-     * of the main file.
-     */
+    /** A downsampled version of the main file, if one exists; otherwise a
+     * mirror of the main file. */
     sample: PostFile & {
         /** Whether the "downsample" is the same as the main file. */
         exists: boolean;
     };
-    /**
-     * A very downsampled version of the main file. Typically used as a
-     * thumbnail.
-     */
+    /** A very downsampled version of the main file. Typically used as a
+     * thumbnail. */
     preview: PostFile;
 
     /** Whether this post's media is static, an animated image, or a video. */
