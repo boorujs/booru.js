@@ -1,5 +1,6 @@
 import { TagType } from "../enums/tag-type.ts";
 import { tagWiki as getURL } from "../../util/functions/site-url.ts";
+import { BoorujsError } from "../../../../error/classes/boorujs-error.ts";
 
 /** The base interface for tags. */
 export abstract class BaseTag<T extends TagType = TagType> {
@@ -16,5 +17,8 @@ export abstract class BaseTag<T extends TagType = TagType> {
     ambiguous?: boolean;
 
     /** Returns a URL to this tag's wiki page on rule34.xxx. */
-    toWikiURL(): string { return getURL(this.id); }
+    toWikiURL(): string {
+        if (!this.id) BoorujsError.throw("_TEMP");
+        else return getURL(this.id);
+    }
 }
