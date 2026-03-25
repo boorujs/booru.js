@@ -2,7 +2,7 @@ import type { BaseTag } from "../interfaces/base-tag.ts";
 import type { RawAutocompleteTags } from "../../api/raw/interface/raw-autocomplete-tag.ts";
 
 /** A tag received from an autocomplete suggestion. */
-export class AutocompleteTag implements Pick<BaseTag, "name" | "count"> {
+export class AutocompleteTag extends BaseTag {
     name: string;
     count: number;
 

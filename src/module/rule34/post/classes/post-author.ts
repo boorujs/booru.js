@@ -6,7 +6,9 @@ export class PostAuthor extends BaseUser {
     id: number;
 
     /** Whether the user is a bot. */
-    bot: boolean;
+    get isBot(): boolean {
+        return this.name === "bot";
+    };
 
     constructor (object: {
         name: string;
