@@ -99,9 +99,13 @@ export class Client {
             }
         )).then((raw: RawAutocompleteTags) => {
             const array = raw.map(i => AutocompleteTag.fromRaw(i));
-            return array.slice(0, array.findIndex(
-                i => !Client.MALFORMED_AUTOCOMPLETE_REGEX.test(i.name)
-            ));
+            const invalid = array.findIndex(
+                i => Client.MALFORMED_AUTOCOMPLETE_REGEX.test(i.name)
+            );
+            return array.slice(0, invalid === -1
+                ? array.length
+                : invalid
+            );
         });
     }
 
