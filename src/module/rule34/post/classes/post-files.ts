@@ -1,22 +1,7 @@
+import { PostFile } from "./post-file.ts";
 import { MediaType } from "../../../../global/enums/media-type.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostXml } from "../../api/raw/interface/raw-posts-xml.ts";
-
-/** A set of the files of a post. */
-export class PostFile {
-    /** The CDN URL of the media file. */
-    url: string;
-    /** The dimensions of the media file. */
-    size: [ width: number, height: number ];
-    
-    constructor (object: {
-        url: string;
-        size: [ width: number, height: number ];
-    }) {
-        this.url = object.url;
-        this.size = object.size;
-    }
-}
 
 /** The files of a post. */
 export class PostFiles extends PostFile {
@@ -71,7 +56,7 @@ export class PostFiles extends PostFile {
         this.downsample.exists = this.url !== this.downsample.url;
         this.thumbnail = new PostFile(object.thumbnail);
 
-        this.extension = object.image.match(/(?<=\.)\w+$/)![0];
+        const extension = object.image.match(/(?<=\.)\w+$/)![0];
 
         this.type = MediaType[
             (Object.keys(PostFiles.FILE_EXTENSIONS) as
@@ -82,6 +67,7 @@ export class PostFiles extends PostFile {
             )!
         ];
 
+        this.extension = extension;
         this.directory = object.directory;
         this.hash = object.hash;
     }

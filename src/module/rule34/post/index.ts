@@ -1,5 +1,6 @@
 export { PostAuthor } from "./classes/post-author.ts";
-export { PostFile, PostFiles } from "./classes/post-files.ts";
+export { PostFile } from "./classes/post-file.ts";
+export { PostFiles } from "./classes/post-files.ts";
 export { Post } from "./classes/post.ts";
 export { Search } from "./classes/search.ts";
 
