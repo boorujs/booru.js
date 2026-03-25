@@ -12,6 +12,11 @@ export class Search {
     /** Resulting posts from the query. */
     results: Post[];
 
+    /** Returns whether posts may appear on the following page of results. */
+    nextPageExists(): boolean {
+        return (this.offset + this.results.length) < this.count;
+    }
+
     constructor (object: {
         count: number;
         offset: number;
