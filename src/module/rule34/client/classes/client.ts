@@ -126,7 +126,12 @@ export class Client {
         // API REQUEST
         return await fetchXml(apiUrl(
             "comment",
-            id ? { post_id: id } : {}
+            id ? {
+                post_id: id,
+                ...this.#auth
+            } : {
+                ...this.#auth
+            }
         )).then(i => Comments.fromRaw(i as any as RawComments));
     }
 }
