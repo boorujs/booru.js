@@ -14,7 +14,6 @@ import type { RawAutocompleteTags } from "../../api/raw/interface/raw-autocomple
 import type { RawPostsJson } from "../../api/raw/interface/raw-posts-json.ts";
 import type { RawPostsXml } from "../../api/raw/interface/raw-posts-xml.ts";
 import type { RawComments } from "../../api/raw/interface/raw-comments.ts";
-import type { ApiUrlParameterMap } from "../../api/url/interfaces/api-parameter-map.ts";
 
 /** Client to retrieve data from Rule 34 at rule34.xxx. */
 export class Client {
@@ -24,32 +23,6 @@ export class Client {
     
     /** The user tied to the client. */
     self: ClientUser;
-    
-    // TODO: this can be typed better
-    /* i want to type this, using (`typeof`) `apiUrl` itself, so that it acts
-     * *equivalently* to `apiUrl` but that credentials aren't required in params.
-     * 
-     * typescript's (surely fully implemented) overloading feature makes this
-     * IMPOSSIBLE by using `apiUrl` directly because generic types assume the
-     * last defined overload of a function parameter, meaning usage of `apiUrl`
-     * as a generic type parameter narrows down to a grand:
-     * 
-     *     (s: "post", params: { ...; }, bothFormats: true) => { json; xml; }
-     * 
-     * this makes the only way to achieve what im looking for accessible via the
-     * good ol' ctrl + (c | v). which ive been advised against using as much as
-     * possible. and honestly id rather die than deal with that currently.
-     * 
-     * UPDATE: as of 0.1.1-alpha this is typed a bit better using
-     * `ApiUrlParameterMap` instead of abusing the hell out of `any`. the only
-     * thing `any` must be used for now is the return type until im willing to
-     * copy the overloads too
-     */
-    apiUrl = <S extends keyof ApiUrlParameterMap>(
-        s: S,
-        params: Omit<ApiUrlParameterMap[S]["params"], keyof Authentication>,
-        ...args: ApiUrlParameterMap[S]["args"]
-    ): any => apiUrl(s, { ...params, ...this.#auth }, ...args);
     
     constructor (options: ClientOptions) {
         this.#auth = options.auth;
@@ -63,9 +36,10 @@ export class Client {
     async test(): Promise<this | never> {
         if (!this.authorized) {
             // API REQUEST
-            const response = await fetch(this.apiUrl("post", {
+            const response = await fetch(apiUrl("post", {
                 limit: 0,
-                json: 1
+                json: 1,
+                ...this.#auth
             })).then(r => r.text());
 
             switch (response) {
@@ -92,12 +66,9 @@ export class Client {
      * Returns autocomplete suggestions for an incomplete tag.
      */
     async autocomplete(tag: string): Promise<AutocompleteTag[]> {
-        return await fetchJson(this.apiUrl(
-            "autocomplete",
-            {
-                q: tag
-            }
-        )).then((raw: RawAutocompleteTags) => {
+        return await fetchJson(apiUrl("autocomplete", {
+            q: tag
+        })).then((raw: RawAutocompleteTags) => {
             const array = raw.map(i => AutocompleteTag.fromRaw(i));
             const invalid = array.findIndex(
                 i => Client.MALFORMED_AUTOCOMPLETE_REGEX.test(i.name)
@@ -116,13 +87,14 @@ export class Client {
         query: string,
         options?: { perPage?: number; page?: number; }
     ): Promise<Search> {
-        const url = this.apiUrl(
+        const url = apiUrl(
             "post",
             {
                 tags: query,
                 limit: options?.perPage ?? 42,
                 pid: options?.page ?? 0,
-                fields: "tag_info"
+                fields: "tag_info",
+                ...this.#auth
             },
             true
         );
@@ -152,7 +124,7 @@ export class Client {
      */
     async getComments(id?: number): Promise<Comments> {
         // API REQUEST
-        return await fetchXml(this.apiUrl(
+        return await fetchXml(apiUrl(
             "comment",
             id ? { post_id: id } : {}
         )).then(i => Comments.fromRaw(i as any as RawComments));
