@@ -59,7 +59,7 @@ export class PostFiles extends PostFile {
                 (keyof typeof PostFiles.FILE_EXTENSIONS)[])
             .find(key =>
                 (PostFiles.FILE_EXTENSIONS[key] as string[])
-                    .includes(this.extension)
+                    .includes(extension)
             )!
         ];
 
