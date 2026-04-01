@@ -1,12 +1,12 @@
 import { TagType } from "../enums/tag-type.ts";
-import { BaseTag } from "../interfaces/base-tag.ts";
+import type { TagKeysPick } from "../types/tag-keys-pick.ts";
 import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 
 /** A tag attributed to a post. */
-export class PostTag<T extends TagType = TagType> extends BaseTag<T> {
+export class PostTag implements TagKeysPick<["name", "count", "type"]> {
     name: string;
     count: number;
-    override type: T;
+    type: TagType;
     
     static RAW_TAG_TYPE = {
         "copyright": "Copyright",

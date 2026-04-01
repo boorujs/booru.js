@@ -1,8 +1,8 @@
-import { BaseTag } from "../interfaces/base-tag.ts";
+import type { TagKeysPick } from "../types/tag-keys-pick.ts";
 import type { RawAutocompleteTags } from "../../api/raw/interface/raw-autocomplete-tag.ts";
 
 /** A tag received from an autocomplete suggestion. */
-export class AutocompleteTag extends BaseTag {
+export class AutocompleteTag implements TagKeysPick<["name", "count"]> {
     name: string;
     count: number;
 
