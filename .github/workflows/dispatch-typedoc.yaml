@@ -4,14 +4,51 @@ on:
   release:
     types:
       - released
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Commit and tag message
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
+    env:
+      message: ${{ github.event.release.name || inputs.message }}
     steps:
-      - name: Dispatch Workflow
-        uses: dusansimic/trigger-workflow-action@v0.1.0
+      - name: Checkout booru.js
+        uses: actions/checkout@v4
         with:
-          owner: boorujs
-          repo: docs
-          name: reset.yaml
+          path: "./main/"
+      
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          repository: boorujs/docs
+          path: "./docs/"
+      
+      - run: cd ./main/
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate Typedocs
+        run: npm run docs
+      
+      - name: Configure docs/
+        run: |
+          cd ../docs/
+          git rm -- **/*
+          cp -a ../main/typedoc/. ./
+      
+      - name: Push docs
+        uses: EndBug/add-and-commit@v10
+        with:
+          message: "auto: $message"
+          tag: "$message --force"
+          tag_push: "--force"
+          push: "--set-upstream --dry-run"
