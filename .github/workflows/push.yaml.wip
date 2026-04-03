@@ -1,0 +1,67 @@
+name: Reset repository contents
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Commit name"
+        type: string
+        required: true
+      tag:
+        description: "Create tag with commit name"
+        type: boolean
+        required: false
+        default: true
+    
+permissions:
+  contents: write
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          path: "./main/"
+      
+      - name: Checkout booru.js
+        uses: actions/checkout@v4
+        with:
+          repository: boorujs/booru.js
+          path: "./booru.js/"
+      
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: "npm"
+      
+      - run: cd ./booru.js/
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate Typedocs
+        run: npm run docs
+
+      - name: Configure ./main/
+        run: |
+          cd ../main/
+          cp -a ../booru.js/typedoc/. ./
+          git rm -- **/* !./.github/* !./README.md
+      
+      # if tag
+      - name: Push docs
+        uses: EndBug/add-and-commit@v10
+        if: ${{ inputs.tag }}
+        with:
+          message: "auto: ${{ inputs.message }}"
+          push: "--set-upstream --dry-run"
+      # else
+      - name: Push docs
+        uses: EndBug/add-and-commit@v10
+        if: ${{ !inputs.tag }}
+        with:
+          message: "auto: ${{ inputs.message }}"
+          tag: "${{ inputs.message }} --force"
+          tag_push: "--force"
+          push: "--set-upstream --dry-run"
