@@ -1,0 +1,17 @@
+name: Dispatch Typedoc Workflow
+
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Workflow
+        uses: dusansimic/trigger-workflow-action@v0.1.0
+        with:
+          owner: boorujs
+          repo: docs
+          name: reset.yaml
