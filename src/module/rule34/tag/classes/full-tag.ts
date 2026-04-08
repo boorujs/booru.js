@@ -1,11 +1,9 @@
 import { tagWiki as getUrl } from "../../util/functions/site-url.ts";
+import type { TagWithType } from "./tag-with-type.ts";
 import type { TagType } from "../enums/tag-type.ts";
-import type { BaseTag } from "./base-tag.ts";
 
 /** The abstract class for fully-implemented tags. */
-export abstract class FullTag extends BaseTag {
-    /** The category of this tag. */
-    abstract type: TagType;
+export abstract class FullTag extends TagWithType {
     /** The unique ID of this tag. */
     abstract id: number;
     // TODO
