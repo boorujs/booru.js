@@ -26,9 +26,8 @@ export class PostTag implements TagKeysPick<["name", "count", "type"]> {
     constructor (object: {
         name: string;
         count: number;
-        type: T;
+        type: TagType;
     }) {
-        super();
         this.name = object.name;
         this.count = object.count;
         this.type = object.type;

@@ -10,7 +10,6 @@ export class AutocompleteTag implements TagKeysPick<["name", "count"]> {
         name: string;
         count: number;
     }) {
-        super();
         this.name = object.name;
         this.count = object.count;
     }

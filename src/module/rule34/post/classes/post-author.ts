@@ -17,7 +17,5 @@ export class PostAuthor extends BaseUser {
         super();
         this.name = object.name;
         this.id = object.id;
-
-        this.bot = this.name === "bot";
     }
 }

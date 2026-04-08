@@ -5,28 +5,28 @@ import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 /** Array of tags found under a post. */
 export class PostTags extends Array<PostTag> {
     /** Returns an array of the tags that match the given type. */
-    ofCategory<T extends TagType>(category: T): PostTag<T>[] {
-        return this.filter(tag => tag.type === category) as PostTag<T>[];
+    ofCategory(category: TagType): PostTag[] {
+        return this.filter(tag => tag.type === category);
     }
 
     /** Returns tags with {@link TagType.Copyright}. */
-    get copyright(): PostTag<TagType.Copyright>[] {
+    get copyright(): PostTag[] {
         return this.ofCategory(TagType.Copyright);
     }
     /** Returns tags with {@link TagType.Character}. */
-    get character(): PostTag<TagType.Character>[] {
+    get character(): PostTag[] {
         return this.ofCategory(TagType.Character);
     }
     /** Returns tags with {@link TagType.Artist}. */
-    get artist(): PostTag<TagType.Artist>[] {
+    get artist(): PostTag[] {
         return this.ofCategory(TagType.Artist);
     }
     /** Returns tags with {@link TagType.General}. */
-    get general(): PostTag<TagType.General>[] {
+    get general(): PostTag[] {
         return this.ofCategory(TagType.General);
     }
     /** Returns tags with {@link TagType.Metadata}. */
-    get metadata(): PostTag<TagType.Metadata>[] {
+    get metadata(): PostTag[] {
         return this.ofCategory(TagType.Metadata);
     }
 
