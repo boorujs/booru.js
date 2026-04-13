@@ -5,6 +5,10 @@ import type { RawPostsXml } from "../../api/raw/interface/raw-posts-xml.ts";
 
 /** Search results of posts. */
 export class Search {
+    #client: Client;
+
+    private query: Parameters<Client["search"]>;
+
     /** Amount of posts that can be found with the query. */
     count: number;
     /** The offset of the returned results. */
@@ -22,20 +26,53 @@ export class Search {
         return this.offset !== 0;
     }
 
+    /** Returns the next page of results. */
+    async getNextPage(): Promise<Search | null> {
+        if (!this.nextPageExists()) return null;
+
+        let [query, options] = this.query;
+
+        if (options)
+            if (typeof options.page !== "undefined") ++options.page;
+            else options.page = 1;
+        else options = { page: 1 };
+
+        return await this.#client.search(query, options);
+    }
+
+    /** Returns the previous page of results. */
+    async getPrevPage(): Promise<Search | null> {
+        if (!this.prevPageExists()) return null;
+
+        let [query, options] = this.query;
+
+        --options!.page;
+
+        return await this.#client.search(query, options);
+    }
+
     constructor (object: {
+        client: Client;
+        query: Parameters<Client["search"]>;
         count: number;
         offset: number;
-        results: Post[]
+        results: Post[];
     }) {
+        this.#client = object.client;
+        this.query = object.query;
         this.count = object.count;
         this.offset = object.offset;
         this.results = object.results;
     }
 
-    static fromRaw(client: Client, raw: {
-        json: RawPostsJson;
-        xml: RawPostsXml;
-    }) {
+    static fromRaw(
+        client: Client,
+        query: Parameters<Client["search"]>,
+        raw: {
+            json: RawPostsJson;
+            xml: RawPostsXml;
+        }
+    ) {
         const merged: Post[] = [];
         raw.json.forEach((_, i) => merged.push(Post.fromRaw(
             client,
@@ -46,6 +83,8 @@ export class Search {
         )));
 
         return new this({
+            client: client,
+            query: query,
             count: parseInt(raw.xml.attr.count),
             offset: parseInt(raw.xml.attr.offset),
             results: merged
