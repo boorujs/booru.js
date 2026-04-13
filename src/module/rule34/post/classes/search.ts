@@ -17,6 +17,11 @@ export class Search {
         return (this.offset + this.results.length) < this.count;
     }
 
+    /** Returns whether this object represents the first page of results. */
+    prevPageExists(): boolean {
+        return this.offset !== 0;
+    }
+
     constructor (object: {
         count: number;
         offset: number;
