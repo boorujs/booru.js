@@ -51,6 +51,14 @@ export class Search {
         return await this.#client.search(query, options);
     }
 
+    toJSON() {
+        return {
+            count: this.count,
+            offset: this.offset,
+            results: this.results
+        };
+    }
+
     constructor (object: {
         client: Client;
         query: Parameters<Client["search"]>;

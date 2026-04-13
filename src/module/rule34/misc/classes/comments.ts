@@ -13,6 +13,13 @@ export class Comments {
     /** The array of comments. */
     results: Comment[];
 
+    toJSON() {
+        return {
+            postId: this.postId,
+            results: this.results
+        };
+    }
+
     constructor (object: {
         postId?: number;
         results: Comment[];

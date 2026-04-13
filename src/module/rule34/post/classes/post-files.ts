@@ -23,6 +23,21 @@ export class PostFiles extends PostFile {
     hash: string;
     /** The file extension of this post's main CDN file. */
     extension: string;
+
+    toJSON() {
+        return {
+            ...super.toJSON(),
+            sample: {
+                ...this.sample.toJSON(),
+                exists: this.sample.exists
+            },
+            preview: this.preview,
+            type: this.type,
+            directory: this.directory,
+            hash: this.hash,
+            extension: this.extension
+        };
+    }
     
     static FILE_EXTENSIONS = <const> {
         Static: [ "jpeg", "jpg", "png" ],

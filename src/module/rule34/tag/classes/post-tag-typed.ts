@@ -7,6 +7,14 @@ export class PostTagTyped extends TagWithType {
     name: string;
     count: number;
     type: TagType;
+
+    toJSON() {
+        return {
+            name: this.name,
+            count: this.count,
+            type: this.type
+        };
+    }
     
     static RAW_TAG_TYPE = {
         "copyright": "Copyright",

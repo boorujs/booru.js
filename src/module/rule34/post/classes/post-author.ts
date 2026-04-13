@@ -10,6 +10,14 @@ export class PostAuthor extends BaseUser {
         return this.name === "bot";
     };
 
+    toJSON() {
+        return {
+            name: this.name,
+            id: this.id,
+            isBot: this.isBot()
+        };
+    }
+
     constructor (object: {
         name: string;
         id: number;

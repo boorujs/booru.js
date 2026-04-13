@@ -48,6 +48,22 @@ export class Post {
     async getComments(): Promise<Comments> {
         return await this.client.getComments(this.id);
     }
+
+    toJSON() {
+        return {
+            file: this.file,
+            id: this.id,
+            parent: this.parent,
+            source: this.source,
+            rating: this.rating,
+            author: this.author,
+            created: this.created,
+            modified: this.modified,
+            status: this.status,
+            score: this.score,
+            tags: this.tags
+        };
+    }
     
     static RAW_RATING = {
         "safe": "Safe",

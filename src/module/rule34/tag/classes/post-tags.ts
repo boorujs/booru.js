@@ -52,6 +52,17 @@ export class PostTags {
         return all.map(i => i.name).join(" ");
     }
 
+    toJSON() {
+        return {
+            copyright: this.copyright,
+            character: this.character,
+            artist: this.artist,
+            general: this.general,
+            metadata: this.metadata,
+            ambiguous: this.ambiguous
+        };
+    }
+
     constructor (array: PostTagTyped[]) {
         this.all = array;
     }

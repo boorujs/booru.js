@@ -6,6 +6,13 @@ import type { RawPostJson } from "../../api/raw/interface/raw-posts-json.ts";
 export class PostTag extends BaseTag {
     name: string;
     count: number;
+
+    toJSON() {
+        return {
+            name: this.name,
+            count: this.count
+        };
+    }
     
     constructor (object: {
         name: string;

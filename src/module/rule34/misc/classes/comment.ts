@@ -15,6 +15,16 @@ export class Comment {
      * post. */
     index: number;
 
+    toJSON() {
+        return {
+            postId: this.postId,
+            id: this.id,
+            author: this.author,
+            body: this.body,
+            index: this.index
+        };
+    }
+
     constructor (object: {
         postId: number;
         id: number;

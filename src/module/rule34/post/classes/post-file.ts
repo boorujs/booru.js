@@ -4,6 +4,13 @@ export class PostFile {
     url: string;
     /** The dimensions of the media file. */
     size: [ width: number, height: number ];
+
+    toJSON() {
+        return {
+            url: this.url,
+            size: this.size
+        };
+    }
     
     constructor (object: {
         url: string;

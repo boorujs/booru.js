@@ -5,6 +5,13 @@ import type { RawAutocompleteTags } from "../../api/raw/interface/raw-autocomple
 export class AutocompleteTag extends BaseTag {
     name: string;
     count: number;
+
+    toJSON() {
+        return {
+            name: this.name,
+            count: this.count
+        };
+    }
     
     constructor (object: {
         name: string;

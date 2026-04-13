@@ -5,6 +5,12 @@ import type { BaseUser } from "../../misc/interfaces/base-user.ts";
 export class ClientUser implements Pick<BaseUser, "id"> {
     id: number;
 
+    toJSON() {
+        return {
+            id: this.id
+        };
+    }
+
     constructor (object: {
         id: number;
     }) {
